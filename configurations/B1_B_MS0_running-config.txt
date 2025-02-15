@@ -34,7 +34,14 @@ spanning-tree mode pvst
 !
 !
 !
+interface Port-channel1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
 interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
 !
 interface FastEthernet0/2
 !
@@ -79,12 +86,15 @@ interface FastEthernet0/21
 interface FastEthernet0/22
 !
 interface FastEthernet0/23
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
 !
 interface FastEthernet0/24
 !
 interface GigabitEthernet0/1
  no switchport
- ip address 192.168.0.1 255.255.255.240
+ ip address 192.168.0.1 255.255.255.224
  duplex auto
  speed auto
 !
@@ -96,43 +106,43 @@ interface Vlan1
 !
 interface Vlan2
  mac-address 0000.0ca8.d601
- ip address 192.168.0.34 255.255.255.240
- standby 2 ip 192.168.0.33
+ ip address 192.168.0.66 255.255.255.224
+ standby 2 ip 192.168.0.65
  standby 2 preempt
  standby 2 track GigabitEthernet0/1
 !
 interface Vlan3
  mac-address 0000.0ca8.d602
- ip address 192.168.0.50 255.255.255.240
- standby 3 ip 192.168.0.49
+ ip address 192.168.0.98 255.255.255.224
+ standby 3 ip 192.168.0.97
  standby 3 preempt
  standby 3 track GigabitEthernet0/1
 !
 interface Vlan4
  mac-address 0000.0ca8.d603
- ip address 192.168.0.66 255.255.255.240
- standby 4 ip 192.168.0.65
+ ip address 192.168.0.130 255.255.255.224
+ standby 4 ip 192.168.0.129
  standby 4 preempt
  standby 4 track GigabitEthernet0/1
 !
 interface Vlan5
  mac-address 0000.0ca8.d604
- ip address 192.168.0.82 255.255.255.240
- standby 5 ip 192.168.0.81
+ ip address 192.168.0.162 255.255.255.224
+ standby 5 ip 192.168.0.161
  standby 5 preempt
  standby 5 track GigabitEthernet0/1
 !
 interface Vlan6
  mac-address 0000.0ca8.d605
- ip address 192.168.0.98 255.255.255.240
- standby 6 ip 192.168.0.97
+ ip address 192.168.0.194 255.255.255.224
+ standby 6 ip 192.168.0.193
  standby 6 preempt
  standby 6 track GigabitEthernet0/1
 !
 interface Vlan7
  mac-address 0000.0ca8.d606
- ip address 192.168.0.114 255.255.255.240
- standby 7 ip 192.168.0.113
+ ip address 192.168.0.226 255.255.255.224
+ standby 7 ip 192.168.0.225
  standby 7 preempt
  standby 7 track GigabitEthernet0/1
 !
@@ -140,13 +150,13 @@ router ospf 1
  log-adjacency-changes
  passive-interface default
  no passive-interface GigabitEthernet0/1
- network 192.168.0.0 0.0.0.15 area 0
- network 192.168.0.32 0.0.0.15 area 0
- network 192.168.0.48 0.0.0.15 area 0
- network 192.168.0.64 0.0.0.15 area 0
- network 192.168.0.80 0.0.0.15 area 0
- network 192.168.0.96 0.0.0.15 area 0
- network 192.168.0.112 0.0.0.15 area 0
+ network 192.168.0.0   0.0.0.31 area 0
+ network 192.168.0.64  0.0.0.31 area 0
+ network 192.168.0.96  0.0.0.31 area 0
+ network 192.168.0.128 0.0.0.31 area 0
+ network 192.168.0.160 0.0.0.31 area 0
+ network 192.168.0.192 0.0.0.31 area 0
+ network 192.168.0.224 0.0.0.31 area 0
 !
 ip classless
 !

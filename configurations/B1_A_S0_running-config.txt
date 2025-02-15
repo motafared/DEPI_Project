@@ -14,7 +14,15 @@ hostname B1_A_S0
 spanning-tree mode pvst
 spanning-tree extend system-id
 !
+interface Port-channel1
+ switchport mode trunk
+!
+interface Port-channel2
+ switchport mode trunk
+!
 interface FastEthernet0/1
+ switchport mode trunk
+ channel-group 2 mode active
 !
 interface FastEthernet0/2
  switchport access vlan 2
@@ -22,6 +30,7 @@ interface FastEthernet0/2
 !
 interface FastEthernet0/3
  switchport mode trunk
+ channel-group 1 mode active
 !
 interface FastEthernet0/4
  switchport access vlan 3
@@ -64,8 +73,12 @@ interface FastEthernet0/21
 interface FastEthernet0/22
 !
 interface FastEthernet0/23
+ switchport mode trunk
+ channel-group 1 mode active
 !
 interface FastEthernet0/24
+ switchport mode trunk
+ channel-group 2 mode active
 !
 interface GigabitEthernet0/1
 !
