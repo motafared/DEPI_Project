@@ -1,0 +1,158 @@
+
+
+## **How to Configure Bonding with VLAN Subinterfaces on RHEL 6**
+
+This guide explains how to set up bonding (`bond0`) with VLAN subinterfaces (e.g., `bond0.10`, `bond0.20`) on Red Hat Enterprise Linux (RHEL) 6.
+
+---
+
+### **Step 1: Configure the Bonding Interface (`bond0`)**
+Edit the configuration file for `bond0`:
+
+#### **File: `/etc/sysconfig/network-scripts/ifcfg-bond0`**
+```bash
+DEVICE=bond0
+ONBOOT=yes
+BOOTPROTO=none
+BONDING_OPTS="mode=1 miimon=100"
+```
+
+- **`mode=1`**: Active-backup mode (failover).
+- **`miimon=100`**: Checks link status every 100ms.
+
+---
+
+### **Step 2: Configure Slave Interfaces**
+Edit the configuration files for the slave interfaces (e.g., `eth0` and `eth1`).
+
+#### **File: `/etc/sysconfig/network-scripts/ifcfg-eth0`**
+```bash
+DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=none
+MASTER=bond0
+SLAVE=yes
+```
+
+#### **File: `/etc/sysconfig/network-scripts/ifcfg-eth1`**
+```bash
+DEVICE=eth1
+ONBOOT=yes
+BOOTPROTO=none
+MASTER=bond0
+SLAVE=yes
+```
+
+---
+
+### **Step 3: Configure VLAN Subinterfaces**
+Create subinterfaces (VLANs) under `bond0`. For example, create `bond0.10` for VLAN 10 and `bond0.20` for VLAN 20.
+
+#### **File: `/etc/sysconfig/network-scripts/ifcfg-bond0.10`**
+```bash
+DEVICE=bond0.10
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.10.100
+NETMASK=255.255.255.0
+VLAN=yes
+```
+
+#### **File: `/etc/sysconfig/network-scripts/ifcfg-bond0.20`**
+```bash
+DEVICE=bond0.20
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.20.100
+NETMASK=255.255.255.0
+VLAN=yes
+```
+
+- Replace `IPADDR` and `NETMASK` with the appropriate values for your VLANs.
+- The `VLAN=yes` directive ensures the interface is treated as a VLAN subinterface.
+
+---
+
+### **Step 4: Restart the Network Service**
+Restart the network service to apply the changes:
+```bash
+service network restart
+```
+
+---
+
+### **Step 5: Verify the Configuration**
+1. Check the bonding interface:
+   ```bash
+   cat /proc/net/bonding/bond0
+   ```
+
+2. Verify the VLAN subinterfaces:
+   ```bash
+   ip addr show bond0.10
+   ip addr show bond0.20
+   ```
+
+3. Test connectivity to ensure the VLAN subinterfaces are working.
+
+---
+
+### **Example Configuration Files**
+Here’s a summary of the configuration files:
+
+#### **`ifcfg-bond0`:**
+```bash
+DEVICE=bond0
+ONBOOT=yes
+BOOTPROTO=none
+BONDING_OPTS="mode=1 miimon=100"
+```
+
+#### **`ifcfg-eth0`:**
+```bash
+DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=none
+MASTER=bond0
+SLAVE=yes
+```
+
+#### **`ifcfg-eth1`:**
+```bash
+DEVICE=eth1
+ONBOOT=yes
+BOOTPROTO=none
+MASTER=bond0
+SLAVE=yes
+```
+
+#### **`ifcfg-bond0.10`:**
+```bash
+DEVICE=bond0.10
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.10.100
+NETMASK=255.255.255.0
+VLAN=yes
+```
+
+#### **`ifcfg-bond0.20`:**
+```bash
+DEVICE=bond0.20
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.20.100
+NETMASK=255.255.255.0
+VLAN=yes
+```
+
+---
+
+### **Notes**
+- Ensure your switch supports VLAN tagging (802.1Q) if you’re using VLANs.
+- You can add more VLAN subinterfaces by creating additional `ifcfg-bond0.X` files (e.g., `bond0.30`, `bond0.40`, etc.).
+- To change the bonding mode, update the `BONDING_OPTS` parameter in `ifcfg-bond0`.
+
+---
+
+This format is clean, easy to follow, and suitable for sharing in documentation or with colleagues. Let me know if you need further adjustments!
