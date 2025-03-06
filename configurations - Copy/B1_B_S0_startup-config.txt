@@ -56,6 +56,7 @@ interface FastEthernet0/7
  description ->WC_B
  switchport access vlan 7
  switchport mode access
+
 !
 interface FastEthernet0/8
  description ->Operation_PC_S[2]
@@ -119,10 +120,6 @@ interface GigabitEthernet0/2
 interface Vlan1
  no ip address
  shutdown
-!
-interface Vlan5
- no ip address
- ip helper-address 192.168.0.164
 !
 !
 !

@@ -110,7 +110,6 @@ interface Vlan1
 interface Vlan2
  mac-address 000b.be50.ee01
  ip address 192.168.0.67 255.255.255.224
- ip helper-address 192.168.0.164
  standby 2 ip 192.168.0.65
  standby 2 preempt
  standby 2 track GigabitEthernet0/1
@@ -118,7 +117,6 @@ interface Vlan2
 interface Vlan3
  mac-address 000b.be50.ee02
  ip address 192.168.0.99 255.255.255.224
- ip helper-address 192.168.0.164
  standby 3 ip 192.168.0.97
  standby 3 preempt
  standby 3 track GigabitEthernet0/1
@@ -126,7 +124,6 @@ interface Vlan3
 interface Vlan4
  mac-address 000b.be50.ee03
  ip address 192.168.0.131 255.255.255.224
- ip helper-address 192.168.0.164
  standby 4 ip 192.168.0.129
  standby 4 preempt
  standby 4 track GigabitEthernet0/1
@@ -134,7 +131,6 @@ interface Vlan4
 interface Vlan5
  mac-address 000b.be50.ee04
  ip address 192.168.0.163 255.255.255.224
- ip helper-address 192.168.0.164
  standby 5 ip 192.168.0.161
  standby 5 preempt
  standby 5 track GigabitEthernet0/1
@@ -142,7 +138,6 @@ interface Vlan5
 interface Vlan6
  mac-address 000b.be50.ee05
  ip address 192.168.0.195 255.255.255.224
- ip helper-address 192.168.0.164
  standby 6 ip 192.168.0.193
  standby 6 preempt
  standby 6 track GigabitEthernet0/1
@@ -150,7 +145,6 @@ interface Vlan6
 interface Vlan7
  mac-address 000b.be50.ee06
  ip address 192.168.0.227 255.255.255.224
- ip helper-address 192.168.0.164
  standby 7 ip 192.168.0.225
  standby 7 preempt
  standby 7 track GigabitEthernet0/1

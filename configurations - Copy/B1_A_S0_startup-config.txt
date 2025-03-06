@@ -4,7 +4,7 @@ no service timestamps log datetime msec
 no service timestamps debug datetime msec
 no service password-encryption
 !
-hostname B1_B_S0
+hostname B1_A_S0
 !
 !
 !
@@ -15,55 +15,55 @@ spanning-tree mode pvst
 spanning-tree extend system-id
 !
 interface Port-channel1
- description ->B_MS[p1]
+ description ->A_MS[p1]
  switchport mode trunk
 !
 interface Port-channel2
- description ->A_S[P2]
+ description ->B_S[p2]
  switchport mode trunk
 !
 interface FastEthernet0/1
- description ->A_S[1] [p2]
+ description ->B_S[1] [p2]
  switchport mode trunk
  channel-group 2 mode active
 !
 interface FastEthernet0/2
- description ->RND_PC_s[2]
+ description ->RND_PC_s[3]
  switchport access vlan 2
  switchport mode access
 !
 interface FastEthernet0/3
- description ->B_MS[1] [P1]
+ description ->A_MS[1] [p1]
  switchport mode trunk
  channel-group 1 mode active
 !
 interface FastEthernet0/4
- description -> Marketing_PC_s[2]
+ description -> Marketing_PC_s[3]
  switchport access vlan 3
  switchport mode access
 !
 interface FastEthernet0/5
- description ->server_A port 0
+ description -> serverA port 1
  switchport access vlan 5
  switchport mode access
 !
 interface FastEthernet0/6
- description ->server_B port 0
+ description ->serverB port 1
  switchport access vlan 5
  switchport mode access
 !
 interface FastEthernet0/7
- description ->WC_B
+ description ->WC_A
  switchport access vlan 7
  switchport mode access
 !
 interface FastEthernet0/8
- description ->Operation_PC_S[2]
+ description ->Operation_PC_S[3]
  switchport access vlan 4
  switchport mode access
 !
 interface FastEthernet0/9
- description ->IT_PC_S[2]
+ description ->IT_PC_S[3]
  switchport access vlan 5
  switchport mode access
 !
@@ -97,32 +97,28 @@ interface FastEthernet0/21
 interface FastEthernet0/22
 !
 interface FastEthernet0/23
- description ->B_MS[23] [P1]
+ description ->A_MS[23] [p1]
  switchport mode trunk
  channel-group 1 mode active
 !
 interface FastEthernet0/24
- description ->A_S[24] [p2]
+ description ->B_S[24] [p2]
  switchport mode trunk
  channel-group 2 mode active
 !
 interface GigabitEthernet0/1
- description ->access point 2
+ description -> access point 3
  switchport access vlan 7
  switchport mode access
 !
 interface GigabitEthernet0/2
- description ->access point 1
+ description ->access point 4
  switchport access vlan 7
  switchport mode access
 !
 interface Vlan1
  no ip address
  shutdown
-!
-interface Vlan5
- no ip address
- ip helper-address 192.168.0.164
 !
 !
 !

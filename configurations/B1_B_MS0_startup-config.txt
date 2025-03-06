@@ -110,6 +110,7 @@ interface Vlan1
 interface Vlan2
  mac-address 0000.0ca8.d601
  ip address 192.168.0.66 255.255.255.224
+ ip helper-address 192.168.0.164
  standby 2 ip 192.168.0.65
  standby 2 preempt
  standby 2 track GigabitEthernet0/1
@@ -117,6 +118,7 @@ interface Vlan2
 interface Vlan3
  mac-address 0000.0ca8.d602
  ip address 192.168.0.98 255.255.255.224
+ ip helper-address 192.168.0.164
  standby 3 ip 192.168.0.97
  standby 3 preempt
  standby 3 track GigabitEthernet0/1
@@ -124,6 +126,7 @@ interface Vlan3
 interface Vlan4
  mac-address 0000.0ca8.d603
  ip address 192.168.0.130 255.255.255.224
+ ip helper-address 192.168.0.164
  standby 4 ip 192.168.0.129
  standby 4 preempt
  standby 4 track GigabitEthernet0/1
@@ -138,6 +141,7 @@ interface Vlan5
 interface Vlan6
  mac-address 0000.0ca8.d605
  ip address 192.168.0.194 255.255.255.224
+ ip helper-address 192.168.0.164
  standby 6 ip 192.168.0.193
  standby 6 preempt
  standby 6 track GigabitEthernet0/1
@@ -145,6 +149,7 @@ interface Vlan6
 interface Vlan7
  mac-address 0000.0ca8.d606
  ip address 192.168.0.226 255.255.255.224
+ ip helper-address 192.168.0.164
  standby 7 ip 192.168.0.225
  standby 7 preempt
  standby 7 track GigabitEthernet0/1

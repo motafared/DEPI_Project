@@ -4,7 +4,7 @@ no service timestamps log datetime msec
 no service timestamps debug datetime msec
 no service password-encryption
 !
-hostname B1_A_MS0
+hostname B1_B_MS0
 !
 !
 !
@@ -35,12 +35,12 @@ spanning-tree mode pvst
 !
 !
 interface Port-channel1
- description ->A_S0[p1]
+ description ->B_S0[p1]
  switchport trunk encapsulation dot1q
  switchport mode trunk
 !
 interface FastEthernet0/1
- description ->A_S0[f0/3] [p1]
+ description ->B_S[3][p1]
  switchport trunk encapsulation dot1q
  switchport mode trunk
  channel-group 1 mode active
@@ -88,7 +88,7 @@ interface FastEthernet0/21
 interface FastEthernet0/22
 !
 interface FastEthernet0/23
- description ->A_S0[f0/23] [p1]
+ description ->B_S[23][p1]
  switchport trunk encapsulation dot1q
  switchport mode trunk
  channel-group 1 mode active
@@ -97,7 +97,7 @@ interface FastEthernet0/24
 !
 interface GigabitEthernet0/1
  no switchport
- ip address 192.168.0.2 255.255.255.224
+ ip address 192.168.0.1 255.255.255.224
  duplex auto
  speed auto
 !
@@ -108,49 +108,43 @@ interface Vlan1
  shutdown
 !
 interface Vlan2
- mac-address 000b.be50.ee01
- ip address 192.168.0.67 255.255.255.224
- ip helper-address 192.168.0.164
+ mac-address 0000.0ca8.d601
+ ip address 192.168.0.66 255.255.255.224
  standby 2 ip 192.168.0.65
  standby 2 preempt
  standby 2 track GigabitEthernet0/1
 !
 interface Vlan3
- mac-address 000b.be50.ee02
- ip address 192.168.0.99 255.255.255.224
- ip helper-address 192.168.0.164
+ mac-address 0000.0ca8.d602
+ ip address 192.168.0.98 255.255.255.224
  standby 3 ip 192.168.0.97
  standby 3 preempt
  standby 3 track GigabitEthernet0/1
 !
 interface Vlan4
- mac-address 000b.be50.ee03
- ip address 192.168.0.131 255.255.255.224
- ip helper-address 192.168.0.164
+ mac-address 0000.0ca8.d603
+ ip address 192.168.0.130 255.255.255.224
  standby 4 ip 192.168.0.129
  standby 4 preempt
  standby 4 track GigabitEthernet0/1
 !
 interface Vlan5
- mac-address 000b.be50.ee04
- ip address 192.168.0.163 255.255.255.224
- ip helper-address 192.168.0.164
+ mac-address 0000.0ca8.d604
+ ip address 192.168.0.162 255.255.255.224
  standby 5 ip 192.168.0.161
  standby 5 preempt
  standby 5 track GigabitEthernet0/1
 !
 interface Vlan6
- mac-address 000b.be50.ee05
- ip address 192.168.0.195 255.255.255.224
- ip helper-address 192.168.0.164
+ mac-address 0000.0ca8.d605
+ ip address 192.168.0.194 255.255.255.224
  standby 6 ip 192.168.0.193
  standby 6 preempt
  standby 6 track GigabitEthernet0/1
 !
 interface Vlan7
- mac-address 000b.be50.ee06
- ip address 192.168.0.227 255.255.255.224
- ip helper-address 192.168.0.164
+ mac-address 0000.0ca8.d606
+ ip address 192.168.0.226 255.255.255.224
  standby 7 ip 192.168.0.225
  standby 7 preempt
  standby 7 track GigabitEthernet0/1
