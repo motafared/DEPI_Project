@@ -4,7 +4,7 @@ no service timestamps log datetime msec
 no service timestamps debug datetime msec
 no service password-encryption
 !
-hostname B3_S0
+hostname B4_S0
 !
 !
 !
@@ -15,13 +15,14 @@ spanning-tree mode pvst
 spanning-tree extend system-id
 !
 interface FastEthernet0/1
- switchport access vlan 5
+ switchport access vlan 6
  switchport mode access
 !
 interface FastEthernet0/2
  switchport mode trunk
 !
 interface FastEthernet0/3
+ switchport access vlan 5
 !
 interface FastEthernet0/4
 !

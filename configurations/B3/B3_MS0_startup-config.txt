@@ -84,7 +84,7 @@ interface FastEthernet0/24
 !
 interface GigabitEthernet0/1
  no switchport
- ip address 192.168.1.1 255.255.255.224
+ ip address 192.168.2.1 255.255.255.224
  duplex auto
  speed auto
 !
@@ -96,39 +96,39 @@ interface Vlan1
 !
 interface Vlan2
  mac-address 0060.47bd.6801
- ip address 192.168.1.65 255.255.255.224
+ ip address 192.168.2.65 255.255.255.224
 !
 interface Vlan3
  mac-address 0060.47bd.6802
- ip address 192.168.1.97 255.255.255.224
+ ip address 192.168.2.97 255.255.255.224
 !
 interface Vlan4
  mac-address 0060.47bd.6803
- ip address 192.168.1.129 255.255.255.224
+ ip address 192.168.2.129 255.255.255.224
 !
 interface Vlan5
  mac-address 0060.47bd.6804
- ip address 192.168.1.161 255.255.255.224
+ ip address 192.168.2.161 255.255.255.224
 !
 interface Vlan6
  mac-address 0060.47bd.6805
- ip address 192.168.1.193 255.255.255.224
+ ip address 192.168.2.193 255.255.255.224
 !
 interface Vlan7
  mac-address 0060.47bd.6806
- ip address 192.168.1.225 255.255.255.224
+ ip address 192.168.2.225 255.255.255.224
 !
 router ospf 1
  log-adjacency-changes
  passive-interface default
  no passive-interface GigabitEthernet0/1
- network 192.168.1.0 0.0.0.31 area 0
- network 192.168.1.64 0.0.0.31 area 0
- network 192.168.1.96 0.0.0.31 area 0
- network 192.168.1.128 0.0.0.31 area 0
- network 192.168.1.160 0.0.0.31 area 0
- network 192.168.1.192 0.0.0.31 area 0
- network 192.168.1.224 0.0.0.31 area 0
+ network 192.168.2.0 0.0.0.31 area 0
+ network 192.168.2.64 0.0.0.31 area 0
+ network 192.168.2.96 0.0.0.31 area 0
+ network 192.168.2.128 0.0.0.31 area 0
+ network 192.168.2.160 0.0.0.31 area 0
+ network 192.168.2.192 0.0.0.31 area 0
+ network 192.168.2.224 0.0.0.31 area 0
 !
 ip classless
 !

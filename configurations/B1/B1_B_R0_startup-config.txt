@@ -40,10 +40,11 @@ spanning-tree mode pvst
 !
 interface GigabitEthernet0/0
  description -> B3_R0[g0/1] [10.0.0.2]
- ip address 10.0.0.1 255.0.0.0
+ no ip address
  ip ospf 1 area 0
  duplex auto
  speed auto
+ shutdown
 !
 interface GigabitEthernet0/1
  description ->B1_B_MS0[g0/1][192.168.0.1]
@@ -53,10 +54,13 @@ interface GigabitEthernet0/1
  speed auto
 !
 interface GigabitEthernet0/2
- no ip address
+ ip address 20.0.0.1 255.0.0.0
+ ip ospf 1 area 0
  duplex auto
  speed auto
- shutdown
+!
+interface GigabitEthernet0/3/0
+ ip address 12.0.0.1 255.0.0.0
 !
 interface Vlan1
  no ip address
@@ -64,9 +68,15 @@ interface Vlan1
 !
 router ospf 1
  log-adjacency-changes
+ passive-interface default
+ no passive-interface GigabitEthernet0/1
+ no passive-interface GigabitEthernet0/2
+!
+router rip
 !
 ip classless
 ip route 192.168.0.0 255.255.255.0 192.168.0.1 
+ip route 0.0.0.0 0.0.0.0 12.0.0.2 
 !
 ip flow-export version 9
 !

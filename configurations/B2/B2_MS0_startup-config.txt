@@ -1,0 +1,162 @@
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname B2_MS0
+!
+!
+!
+!
+!
+!
+ip routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+ no switchport
+ ip address 10.0.0.2 255.0.0.0
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no switchport
+ ip address 20.0.0.2 255.0.0.0
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan2
+ mac-address 000c.85a4.6d01
+ ip address 192.168.1.65 255.255.255.224
+!
+interface Vlan3
+ mac-address 000c.85a4.6d02
+ ip address 192.168.1.97 255.255.255.224
+!
+interface Vlan4
+ mac-address 000c.85a4.6d03
+ ip address 192.168.1.129 255.255.255.224
+!
+interface Vlan5
+ mac-address 000c.85a4.6d04
+ ip address 192.168.1.161 255.255.255.224
+!
+interface Vlan6
+ mac-address 000c.85a4.6d05
+ ip address 192.168.1.193 255.255.255.224
+!
+interface Vlan7
+ mac-address 000c.85a4.6d06
+ ip address 192.168.1.225 255.255.255.224
+!
+router ospf 1
+ log-adjacency-changes
+ passive-interface default
+ no passive-interface GigabitEthernet0/1
+ no passive-interface GigabitEthernet0/2
+ network 192.168.1.0 0.0.0.31 area 0
+ network 192.168.1.64 0.0.0.31 area 0
+ network 192.168.1.96 0.0.0.31 area 0
+ network 192.168.1.128 0.0.0.31 area 0
+ network 192.168.1.160 0.0.0.31 area 0
+ network 192.168.1.192 0.0.0.31 area 0
+ network 192.168.1.224 0.0.0.31 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
+
