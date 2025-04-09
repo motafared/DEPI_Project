@@ -20,11 +20,30 @@ no ipv6 cef
 !
 !
 license udi pid CISCO2911/K9 sn FTX15244U4Z-
+license boot module c2900 technology-package securityk9
 !
 !
 !
+crypto isakmp policy 1
+ encr aes
+ authentication pre-share
+ group 5
+!
+crypto isakmp key CISCO address 0.0.0.0 0.0.0.0
 !
 !
+!
+crypto ipsec transform-set Branch esp-aes esp-sha-hmac
+!
+crypto map VPN_DEPI 1 ipsec-isakmp 
+ set peer 11.0.0.1
+ set transform-set Branch 
+ match address 100
+!
+crypto map VPN_DEPI 2 ipsec-isakmp 
+ set peer 12.0.0.1
+ set transform-set Branch 
+ match address 100
 !
 !
 !
@@ -47,6 +66,7 @@ interface GigabitEthernet0/0
 interface GigabitEthernet0/1
  ip address 192.168.2.2 255.255.255.224
  ip ospf 1 area 0
+ ip nat inside
  duplex auto
  speed auto
 !
@@ -58,6 +78,8 @@ interface GigabitEthernet0/2
 !
 interface GigabitEthernet0/3/0
  ip address 30.0.0.1 255.0.0.0
+ ip nat outside
+ crypto map VPN_DEPI
 !
 interface Vlan1
  no ip address
@@ -68,12 +90,18 @@ router ospf 1
  passive-interface default
  no passive-interface GigabitEthernet0/1
 !
+ip nat inside source list NAT_LIST interface GigabitEthernet0/3/0 overload
 ip classless
 ip route 0.0.0.0 0.0.0.0 30.0.0.2 
 !
 ip flow-export version 9
 !
 !
+ip access-list extended NAT_LIST
+ deny ip any 192.168.3.0 0.0.0.255
+ deny ip any 192.168.0.0 0.0.1.255
+ permit ip any any
+access-list 100 permit ip 192.168.2.0 0.0.0.255 192.168.0.0 0.0.1.255
 !
 !
 !

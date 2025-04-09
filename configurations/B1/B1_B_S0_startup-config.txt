@@ -17,10 +17,12 @@ spanning-tree extend system-id
 interface Port-channel1
  description ->B_MS[p1]
  switchport mode trunk
+ spanning-tree cost 1
 !
 interface Port-channel2
  description ->A_S[P2]
  switchport mode trunk
+ spanning-tree cost 51
 !
 interface FastEthernet0/1
  description ->A_S[1] [p2]

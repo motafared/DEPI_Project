@@ -38,6 +38,12 @@ interface Port-channel1
  description ->B_S0[p1]
  switchport trunk encapsulation dot1q
  switchport mode trunk
+ spanning-tree cost 1
+!
+interface Port-channel2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ spanning-tree cost 50
 !
 interface FastEthernet0/1
  description ->B_S[3][p1]
@@ -46,6 +52,9 @@ interface FastEthernet0/1
  channel-group 1 mode active
 !
 interface FastEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 2 mode active
 !
 interface FastEthernet0/3
 !
@@ -94,6 +103,9 @@ interface FastEthernet0/23
  channel-group 1 mode active
 !
 interface FastEthernet0/24
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 2 mode active
 !
 interface GigabitEthernet0/1
  no switchport
@@ -167,6 +179,7 @@ router ospf 1
  network 192.168.0.224 0.0.0.31 area 0
 !
 ip classless
+ip route 0.0.0.0 0.0.0.0 192.168.0.3 
 !
 ip flow-export version 9
 !

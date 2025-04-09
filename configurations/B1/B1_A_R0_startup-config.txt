@@ -20,11 +20,30 @@ no ipv6 cef
 !
 !
 license udi pid CISCO2911/K9 sn FTX1524AYKS-
+license boot module c2900 technology-package securityk9
 !
 !
 !
+crypto isakmp policy 1
+ encr aes
+ authentication pre-share
+ group 5
+!
+crypto isakmp key CISCO address 0.0.0.0 0.0.0.0
 !
 !
+!
+crypto ipsec transform-set Branch esp-aes esp-sha-hmac
+!
+crypto map VPN_DEPI 1 ipsec-isakmp 
+ set peer 30.0.0.1
+ set transform-set Branch 
+ match address 100
+!
+crypto map VPN_DEPI 2 ipsec-isakmp 
+ set peer 40.0.0.1
+ set transform-set Branch 
+ match address 102
 !
 !
 !
@@ -42,6 +61,7 @@ interface GigabitEthernet0/0
  description ->B3_R0[g0/0][20.0.0.2]
  ip address 10.0.0.1 255.0.0.0
  ip ospf 1 area 0
+ ip nat inside
  duplex auto
  speed auto
 !
@@ -49,6 +69,7 @@ interface GigabitEthernet0/1
  description ->B1_A_MS0[g0/1][192.168.0.2]
  ip address 192.168.0.4 255.255.255.224
  ip ospf 1 area 0
+ ip nat inside
  duplex auto
  speed auto
 !
@@ -60,6 +81,8 @@ interface GigabitEthernet0/2
 !
 interface GigabitEthernet0/3/0
  ip address 11.0.0.1 255.0.0.0
+ ip nat outside
+ crypto map VPN_DEPI
 !
 interface Vlan1
  no ip address
@@ -71,12 +94,20 @@ router ospf 1
  no passive-interface GigabitEthernet0/0
  no passive-interface GigabitEthernet0/1
 !
+ip nat inside source list NAT_LIST interface GigabitEthernet0/3/0 overload
 ip classless
 ip route 0.0.0.0 0.0.0.0 11.0.0.2 
 !
 ip flow-export version 9
 !
 !
+ip access-list extended NAT_LIST
+ deny ip any 192.168.2.0 0.0.1.255
+ permit ip 192.168.0.0 0.0.1.255 any
+access-list 100 permit ip 192.168.0.0 0.0.1.255 192.168.2.0 0.0.0.255
+access-list 100 permit ip 192.168.3.0 0.0.0.255 192.168.2.0 0.0.0.255
+access-list 102 permit ip 192.168.0.0 0.0.1.255 192.168.3.0 0.0.0.255
+access-list 102 permit ip 192.168.2.0 0.0.0.255 192.168.3.0 0.0.0.255
 !
 !
 !
