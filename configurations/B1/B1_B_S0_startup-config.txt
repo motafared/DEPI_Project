@@ -1,7 +1,7 @@
 !
 version 15.0
-no service timestamps log datetime msec
-no service timestamps debug datetime msec
+service timestamps log datetime msec
+service timestamps debug datetime msec
 no service password-encryption
 !
 hostname B1_B_S0
@@ -11,7 +11,7 @@ hostname B1_B_S0
 !
 !
 !
-spanning-tree mode pvst
+spanning-tree mode rapid-pvst
 spanning-tree extend system-id
 !
 interface Port-channel1
@@ -123,9 +123,11 @@ interface Vlan1
  shutdown
 !
 interface Vlan5
- no ip address
+ ip address 192.168.0.165 255.255.255.224
  ip helper-address 192.168.0.164
 !
+logging trap debugging
+logging 192.168.0.164
 !
 !
 !
@@ -138,6 +140,7 @@ line vty 5 15
 !
 !
 !
+ntp server 192.168.0.164
 !
 end
 

@@ -19,12 +19,14 @@ interface FastEthernet0/1
  switchport mode access
 !
 interface FastEthernet0/2
+ switchport trunk allowed vlan 1-9,11-1005
  switchport mode trunk
 !
 interface FastEthernet0/3
  switchport access vlan 3
 !
 interface FastEthernet0/4
+ switchport access vlan 5
 !
 interface FastEthernet0/5
 !

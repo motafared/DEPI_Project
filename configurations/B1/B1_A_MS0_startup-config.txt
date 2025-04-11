@@ -27,7 +27,8 @@ ip routing
 !
 !
 !
-spanning-tree mode pvst
+spanning-tree mode rapid-pvst
+spanning-tree vlan 2-7 priority 4096
 !
 !
 !
@@ -109,11 +110,16 @@ interface FastEthernet0/24
 !
 interface GigabitEthernet0/1
  no switchport
- ip address 192.168.0.2 255.255.255.224
+ ip address 192.168.0.5 255.255.255.252
  duplex auto
  speed auto
 !
 interface GigabitEthernet0/2
+ no switchport
+ ip address 20.0.0.2 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
 !
 interface Vlan1
  no ip address
@@ -124,6 +130,7 @@ interface Vlan2
  ip address 192.168.0.67 255.255.255.224
  ip helper-address 192.168.0.164
  standby 2 ip 192.168.0.65
+ standby 2 priority 105
  standby 2 preempt
  standby 2 track GigabitEthernet0/1
 !
@@ -132,6 +139,7 @@ interface Vlan3
  ip address 192.168.0.99 255.255.255.224
  ip helper-address 192.168.0.164
  standby 3 ip 192.168.0.97
+ standby 3 priority 105
  standby 3 preempt
  standby 3 track GigabitEthernet0/1
 !
@@ -140,6 +148,7 @@ interface Vlan4
  ip address 192.168.0.131 255.255.255.224
  ip helper-address 192.168.0.164
  standby 4 ip 192.168.0.129
+ standby 4 priority 105
  standby 4 preempt
  standby 4 track GigabitEthernet0/1
 !
@@ -148,6 +157,7 @@ interface Vlan5
  ip address 192.168.0.163 255.255.255.224
  ip helper-address 192.168.0.164
  standby 5 ip 192.168.0.161
+ standby 5 priority 105
  standby 5 preempt
  standby 5 track GigabitEthernet0/1
 !
@@ -156,6 +166,7 @@ interface Vlan6
  ip address 192.168.0.195 255.255.255.224
  ip helper-address 192.168.0.164
  standby 6 ip 192.168.0.193
+ standby 6 priority 105
  standby 6 preempt
  standby 6 track GigabitEthernet0/1
 !
@@ -164,6 +175,7 @@ interface Vlan7
  ip address 192.168.0.227 255.255.255.224
  ip helper-address 192.168.0.164
  standby 7 ip 192.168.0.225
+ standby 7 priority 105
  standby 7 preempt
  standby 7 track GigabitEthernet0/1
 !
@@ -171,6 +183,7 @@ router ospf 1
  log-adjacency-changes
  passive-interface default
  no passive-interface GigabitEthernet0/1
+ no passive-interface GigabitEthernet0/2
  network 192.168.0.0 0.0.0.31 area 0
  network 192.168.0.64 0.0.0.31 area 0
  network 192.168.0.96 0.0.0.31 area 0
@@ -180,7 +193,7 @@ router ospf 1
  network 192.168.0.224 0.0.0.31 area 0
 !
 ip classless
-ip route 0.0.0.0 0.0.0.0 192.168.0.4 
+ip route 0.0.0.0 0.0.0.0 192.168.0.6 
 !
 ip flow-export version 9
 !
@@ -191,6 +204,8 @@ ip flow-export version 9
 !
 !
 !
+logging trap debugging
+logging 192.168.0.164
 line con 0
 !
 line aux 0
@@ -200,6 +215,7 @@ line vty 0 4
 !
 !
 !
+ntp server 192.168.0.164
 !
 end
 

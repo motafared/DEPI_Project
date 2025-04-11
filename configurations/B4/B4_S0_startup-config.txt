@@ -25,6 +25,7 @@ interface FastEthernet0/3
  switchport access vlan 5
 !
 interface FastEthernet0/4
+ switchport access vlan 5
 !
 interface FastEthernet0/5
 !

@@ -29,7 +29,8 @@ crypto isakmp policy 1
  authentication pre-share
  group 5
 !
-crypto isakmp key CISCO address 0.0.0.0 0.0.0.0
+crypto isakmp key CISCO address 11.0.0.1
+crypto isakmp key CISCO address 12.0.0.1
 !
 !
 !
@@ -102,6 +103,7 @@ ip access-list extended NAT_LIST
  deny ip any 192.168.0.0 0.0.1.255
  permit ip any any
 access-list 100 permit ip 192.168.2.0 0.0.0.255 192.168.0.0 0.0.1.255
+access-list 100 permit ip 192.168.2.0 0.0.0.255 192.168.3.0 0.0.0.255
 !
 !
 !

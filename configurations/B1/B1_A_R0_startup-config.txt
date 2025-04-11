@@ -29,7 +29,8 @@ crypto isakmp policy 1
  authentication pre-share
  group 5
 !
-crypto isakmp key CISCO address 0.0.0.0 0.0.0.0
+crypto isakmp key CISCO address 30.0.0.1
+crypto isakmp key CISCO address 40.0.0.1
 !
 !
 !
@@ -57,6 +58,9 @@ spanning-tree mode pvst
 !
 !
 !
+interface Loopback1
+ no ip address
+!
 interface GigabitEthernet0/0
  description ->B3_R0[g0/0][20.0.0.2]
  ip address 10.0.0.1 255.0.0.0
@@ -64,10 +68,15 @@ interface GigabitEthernet0/0
  ip nat inside
  duplex auto
  speed auto
+ standby 1 ip 10.0.0.10
+ standby 1 preempt
+ standby 1 track GigabitEthernet0/3/0
+ standby preempt
+ standby 0 track GigabitEthernet0/3/0
 !
 interface GigabitEthernet0/1
  description ->B1_A_MS0[g0/1][192.168.0.2]
- ip address 192.168.0.4 255.255.255.224
+ ip address 192.168.0.6 255.255.255.252
  ip ospf 1 area 0
  ip nat inside
  duplex auto
@@ -93,6 +102,7 @@ router ospf 1
  passive-interface default
  no passive-interface GigabitEthernet0/0
  no passive-interface GigabitEthernet0/1
+ no passive-interface Loopback1
 !
 ip nat inside source list NAT_LIST interface GigabitEthernet0/3/0 overload
 ip classless
@@ -113,6 +123,7 @@ access-list 102 permit ip 192.168.2.0 0.0.0.255 192.168.3.0 0.0.0.255
 !
 !
 !
+logging 192.168.0.164
 line con 0
 !
 line aux 0
@@ -121,6 +132,7 @@ line vty 0 4
  login
 !
 !
+ntp server 192.168.0.164
 !
 end
 

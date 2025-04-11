@@ -27,7 +27,8 @@ ip routing
 !
 !
 !
-spanning-tree mode pvst
+spanning-tree mode rapid-pvst
+spanning-tree vlan 2-7 priority 8192
 !
 !
 !
@@ -109,11 +110,16 @@ interface FastEthernet0/24
 !
 interface GigabitEthernet0/1
  no switchport
- ip address 192.168.0.1 255.255.255.224
+ ip address 192.168.0.1 255.255.255.252
  duplex auto
  speed auto
 !
 interface GigabitEthernet0/2
+ no switchport
+ ip address 20.0.0.1 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
 !
 interface Vlan1
  no ip address
@@ -170,6 +176,7 @@ router ospf 1
  log-adjacency-changes
  passive-interface default
  no passive-interface GigabitEthernet0/1
+ no passive-interface GigabitEthernet0/2
  network 192.168.0.0 0.0.0.31 area 0
  network 192.168.0.64 0.0.0.31 area 0
  network 192.168.0.96 0.0.0.31 area 0
@@ -179,7 +186,7 @@ router ospf 1
  network 192.168.0.224 0.0.0.31 area 0
 !
 ip classless
-ip route 0.0.0.0 0.0.0.0 192.168.0.3 
+ip route 0.0.0.0 0.0.0.0 192.168.0.2 
 !
 ip flow-export version 9
 !
@@ -190,6 +197,8 @@ ip flow-export version 9
 !
 !
 !
+logging trap debugging
+logging 192.168.0.164
 line con 0
 !
 line aux 0
@@ -199,6 +208,7 @@ line vty 0 4
 !
 !
 !
+ntp server 192.168.0.164
 !
 end
 

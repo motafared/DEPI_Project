@@ -29,7 +29,8 @@ crypto isakmp policy 1
  authentication pre-share
  group 5
 !
-crypto isakmp key CISCO address 0.0.0.0 0.0.0.0
+crypto isakmp key CISCO address 30.0.0.1
+crypto isakmp key CISCO address 40.0.0.1
 !
 !
 !
@@ -66,18 +67,24 @@ interface GigabitEthernet0/0
 !
 interface GigabitEthernet0/1
  description ->B1_B_MS0[g0/1][192.168.0.1]
- ip address 192.168.0.3 255.255.255.224
+ ip address 192.168.0.2 255.255.255.252
  ip ospf 1 area 0
  ip nat inside
  duplex auto
  speed auto
 !
 interface GigabitEthernet0/2
- ip address 20.0.0.1 255.0.0.0
+ ip address 10.0.0.2 255.0.0.0
  ip ospf 1 area 0
  ip nat inside
  duplex auto
  speed auto
+ standby 1 ip 10.0.0.10
+ standby 1 priority 95
+ standby 1 preempt
+ standby 1 track GigabitEthernet0/3/0
+ standby preempt
+ standby 0 track GigabitEthernet0/3/0
 !
 interface GigabitEthernet0/3/0
  ip address 12.0.0.1 255.0.0.0
@@ -98,7 +105,6 @@ router rip
 !
 ip nat inside source list NAT_LIST interface GigabitEthernet0/3/0 overload
 ip classless
-ip route 192.168.0.0 255.255.255.0 192.168.0.1 
 ip route 0.0.0.0 0.0.0.0 12.0.0.2 
 !
 ip flow-export version 9
@@ -116,6 +122,8 @@ access-list 102 permit ip 192.168.2.0 0.0.0.255 192.168.3.0 0.0.0.255
 !
 !
 !
+logging trap debugging
+logging 192.168.0.164
 line con 0
 !
 line aux 0
@@ -124,6 +132,7 @@ line vty 0 4
  login
 !
 !
+ntp server 192.168.0.164
 !
 end
 
