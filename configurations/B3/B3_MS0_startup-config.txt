@@ -97,31 +97,43 @@ interface Vlan1
 interface Vlan2
  mac-address 0060.47bd.6801
  ip address 192.168.2.65 255.255.255.224
+ ip helper-address 192.168.2.164
 !
 interface Vlan3
  mac-address 0060.47bd.6802
  ip address 192.168.2.97 255.255.255.224
+ ip helper-address 192.168.2.164
 !
 interface Vlan4
  mac-address 0060.47bd.6803
  ip address 192.168.2.129 255.255.255.224
+ ip helper-address 192.168.2.164
 !
 interface Vlan5
  mac-address 0060.47bd.6804
  ip address 192.168.2.161 255.255.255.224
+ ip helper-address 192.168.2.164
 !
 interface Vlan6
  mac-address 0060.47bd.6805
  ip address 192.168.2.193 255.255.255.224
+ ip helper-address 192.168.2.164
 !
 interface Vlan7
  mac-address 0060.47bd.6806
  ip address 192.168.2.225 255.255.255.224
+ ip helper-address 192.168.2.164
+!
+interface Vlan8
+ mac-address 0060.47bd.6807
+ ip address 192.168.2.33 255.255.255.224
+ ip helper-address 192.168.2.2
 !
 router ospf 1
  log-adjacency-changes
  passive-interface default
  no passive-interface GigabitEthernet0/1
+ no passive-interface Vlan8
  network 192.168.2.0 0.0.0.31 area 0
  network 192.168.2.64 0.0.0.31 area 0
  network 192.168.2.96 0.0.0.31 area 0
@@ -129,6 +141,7 @@ router ospf 1
  network 192.168.2.160 0.0.0.31 area 0
  network 192.168.2.192 0.0.0.31 area 0
  network 192.168.2.224 0.0.0.31 area 0
+ network 192.168.2.32 0.0.0.31 area 0
 !
 ip classless
 ip route 0.0.0.0 0.0.0.0 192.168.2.2 

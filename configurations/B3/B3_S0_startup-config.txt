@@ -17,12 +17,14 @@ spanning-tree extend system-id
 interface FastEthernet0/1
  switchport access vlan 5
  switchport mode access
+ switchport voice vlan 8
 !
 interface FastEthernet0/2
  switchport mode trunk
 !
 interface FastEthernet0/3
  switchport access vlan 4
+ switchport voice vlan 8
 !
 interface FastEthernet0/4
  switchport access vlan 5
@@ -34,6 +36,7 @@ interface FastEthernet0/6
 interface FastEthernet0/7
 !
 interface FastEthernet0/8
+ switchport access vlan 8
 !
 interface FastEthernet0/9
 !

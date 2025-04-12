@@ -9,7 +9,12 @@ hostname B3_R0
 !
 !
 !
+ip dhcp excluded-address 192.168.2.33
 !
+ip dhcp pool VOICE
+ network 192.168.2.32 255.255.255.224
+ default-router 192.168.2.33
+ option 150 ip 192.168.2.2
 !
 !
 !
@@ -21,6 +26,7 @@ no ipv6 cef
 !
 license udi pid CISCO2911/K9 sn FTX15244U4Z-
 license boot module c2900 technology-package securityk9
+license boot module c2900 technology-package uck9
 !
 !
 !
@@ -108,6 +114,35 @@ access-list 100 permit ip 192.168.2.0 0.0.0.255 192.168.3.0 0.0.0.255
 !
 !
 !
+!
+telephony-service
+ max-ephones 5
+ max-dn 5
+ ip source-address 192.168.2.2 port 2000
+ auto assign 1 to 5
+!
+ephone-dn 1
+ number 1001
+!
+ephone-dn 2
+ number 1002
+!
+ephone 1
+ device-security-mode none
+ mac-address 0030.A358.E5E4
+ type 7960
+ button 1:2
+!
+ephone 2
+ device-security-mode none
+ mac-address 000C.CFE7.26B9
+ type 7960
+!
+ephone 3
+ device-security-mode none
+ mac-address 000C.CFD7.26B9
+ type 7960
+ button 1:1
 !
 line con 0
 !
