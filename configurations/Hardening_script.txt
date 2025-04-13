@@ -1,0 +1,33 @@
+enable
+configure terminal
+
+! Disable unnecessary services
+
+
+no cdp run               ! Disable CDP globally (optional)
+
+no ip domain-lookup      ! Prevent DNS lookup typos
+service password-encryption
+
+! Secure access (SSH instead of Telnet)
+ip domain-name DEPI_company
+ip ssh version 2
+crypto key generate rsa general-keys modulus 2048
+line vty 0 4
+ transport input ssh
+ login local
+ exit
+username admin secret StrongPassword123
+
+! Enable logging timestamp & sequence numbers
+service timestamps debug datetime msec
+service timestamps log datetime msec
+
+
+logging host 192.168.3.164
+logging trap debugging   
+logging on              
+
+snmp-server community public ro
+
+ntp server 192.168.3.164

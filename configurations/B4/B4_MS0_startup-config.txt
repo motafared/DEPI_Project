@@ -1,8 +1,8 @@
 !
 version 12.2(37)SE1
-no service timestamps log datetime msec
-no service timestamps debug datetime msec
-no service password-encryption
+service timestamps log datetime msec
+service timestamps debug datetime msec
+service password-encryption
 !
 hostname B4_MS0
 !
@@ -16,6 +16,7 @@ ip routing
 !
 !
 !
+username admin secret 5 $1$mERr$DonFl8bwF40lgF/Y4XK6W1
 !
 !
 !
@@ -25,6 +26,10 @@ ip routing
 !
 !
 !
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name DEPI_company
 !
 !
 spanning-tree mode pvst
@@ -138,20 +143,27 @@ ip flow-export version 9
 !
 !
 !
+no cdp run
 !
 !
 !
 !
 !
+snmp-server community public RO
+!
+logging trap debugging
+logging 192.168.3.164
 line con 0
 !
 line aux 0
 !
 line vty 0 4
- login
+ login local
+ transport input ssh
 !
 !
 !
+ntp server 192.168.3.164
 !
 end
 

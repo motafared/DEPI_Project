@@ -1,8 +1,8 @@
 !
 version 15.1
-no service timestamps log datetime msec
-no service timestamps debug datetime msec
-no service password-encryption
+service timestamps log datetime msec
+service timestamps debug datetime msec
+service password-encryption
 !
 hostname B3_R0
 !
@@ -22,6 +22,8 @@ no ip cef
 no ipv6 cef
 !
 !
+!
+username admin secret 5 $1$mERr$DonFl8bwF40lgF/Y4XK6W1
 !
 !
 license udi pid CISCO2911/K9 sn FTX15244U4Z-
@@ -55,6 +57,9 @@ crypto map VPN_DEPI 2 ipsec-isakmp
 !
 !
 !
+ip ssh version 2
+no ip domain-lookup
+ip domain-name DEPI_company
 !
 !
 spanning-tree mode pvst
@@ -111,10 +116,15 @@ ip access-list extended NAT_LIST
 access-list 100 permit ip 192.168.2.0 0.0.0.255 192.168.0.0 0.0.1.255
 access-list 100 permit ip 192.168.2.0 0.0.0.255 192.168.3.0 0.0.0.255
 !
+no cdp run
 !
 !
 !
 !
+snmp-server community public RO
+!
+logging trap debugging
+logging 192.168.2.164
 telephony-service
  max-ephones 5
  max-dn 5
@@ -149,9 +159,11 @@ line con 0
 line aux 0
 !
 line vty 0 4
- login
+ login local
+ transport input ssh
 !
 !
+ntp server 192.168.2.164
 !
 end
 
