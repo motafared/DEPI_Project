@@ -9,12 +9,18 @@ hostname B3_R0
 !
 !
 !
-ip dhcp excluded-address 192.168.2.33
 !
-ip dhcp pool VOICE
- network 192.168.2.32 255.255.255.224
- default-router 192.168.2.33
- option 150 ip 192.168.2.2
+!
+!
+aaa new-model
+!
+aaa authentication login SSH-Login group tacacs+ local 
+aaa authentication login default group tacacs+ local 
+aaa authentication enable default group tacacs+ 
+!
+!
+!
+!
 !
 !
 !
@@ -32,27 +38,8 @@ license boot module c2900 technology-package uck9
 !
 !
 !
-crypto isakmp policy 1
- encr aes
- authentication pre-share
- group 5
-!
-crypto isakmp key CISCO address 11.0.0.1
-crypto isakmp key CISCO address 12.0.0.1
 !
 !
-!
-crypto ipsec transform-set Branch esp-aes esp-sha-hmac
-!
-crypto map VPN_DEPI 1 ipsec-isakmp 
- set peer 11.0.0.1
- set transform-set Branch 
- match address 100
-!
-crypto map VPN_DEPI 2 ipsec-isakmp 
- set peer 12.0.0.1
- set transform-set Branch 
- match address 100
 !
 !
 !
@@ -91,7 +78,6 @@ interface GigabitEthernet0/2
 interface GigabitEthernet0/3/0
  ip address 30.0.0.1 255.0.0.0
  ip nat outside
- crypto map VPN_DEPI
 !
 interface Vlan1
  no ip address
@@ -119,47 +105,20 @@ access-list 100 permit ip 192.168.2.0 0.0.0.255 192.168.3.0 0.0.0.255
 no cdp run
 !
 !
+tacacs-server host 192.168.2.164 key password
 !
 !
 snmp-server community public RO
 !
 logging trap debugging
 logging 192.168.2.164
-telephony-service
- max-ephones 5
- max-dn 5
- ip source-address 192.168.2.2 port 2000
- auto assign 1 to 5
-!
-ephone-dn 1
- number 1001
-!
-ephone-dn 2
- number 1002
-!
-ephone 1
- device-security-mode none
- mac-address 0030.A358.E5E4
- type 7960
- button 1:2
-!
-ephone 2
- device-security-mode none
- mac-address 000C.CFE7.26B9
- type 7960
-!
-ephone 3
- device-security-mode none
- mac-address 000C.CFD7.26B9
- type 7960
- button 1:1
-!
 line con 0
+ login authentication default
 !
 line aux 0
 !
 line vty 0 4
- login local
+ login authentication SSH-Login
  transport input ssh
 !
 !

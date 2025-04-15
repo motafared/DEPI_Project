@@ -29,6 +29,7 @@ interface FastEthernet0/2
 !
 interface FastEthernet0/3
  switchport access vlan 4
+ switchport mode access
  switchport voice vlan 8
 !
 interface FastEthernet0/4

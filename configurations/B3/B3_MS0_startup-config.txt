@@ -11,6 +11,17 @@ hostname B3_MS0
 !
 !
 !
+aaa new-model
+!
+aaa authentication login SSH-Login group tacacs+ local 
+aaa authentication login default group tacacs+ local 
+aaa authentication enable default group tacacs+ 
+!
+!
+!
+!
+!
+!
 ip routing
 !
 !
@@ -132,7 +143,7 @@ interface Vlan7
 interface Vlan8
  mac-address 0060.47bd.6807
  ip address 192.168.2.33 255.255.255.224
- ip helper-address 192.168.2.2
+ ip helper-address 192.168.2.164
 !
 router ospf 1
  log-adjacency-changes
@@ -140,13 +151,13 @@ router ospf 1
  no passive-interface GigabitEthernet0/1
  no passive-interface Vlan8
  network 192.168.2.0 0.0.0.31 area 0
+ network 192.168.2.32 0.0.0.31 area 0
  network 192.168.2.64 0.0.0.31 area 0
  network 192.168.2.96 0.0.0.31 area 0
  network 192.168.2.128 0.0.0.31 area 0
  network 192.168.2.160 0.0.0.31 area 0
  network 192.168.2.192 0.0.0.31 area 0
  network 192.168.2.224 0.0.0.31 area 0
- network 192.168.2.32 0.0.0.31 area 0
 !
 ip classless
 ip route 0.0.0.0 0.0.0.0 192.168.2.2 
@@ -158,6 +169,7 @@ ip flow-export version 9
 no cdp run
 !
 !
+tacacs-server host 192.168.2.164 key password
 !
 !
 !
@@ -166,11 +178,12 @@ snmp-server community public RO
 logging trap debugging
 logging 192.168.2.164
 line con 0
+ login authentication default
 !
 line aux 0
 !
 line vty 0 4
- login local
+ login authentication SSH-Login
  transport input ssh
 !
 !

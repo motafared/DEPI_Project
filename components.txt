@@ -1,0 +1,20 @@
+2911 router 
+The Cisco 2911 Integrated Services Router (ISR) delivers highly secure data, voice, video, and application service
+3 integrated 10/100/1000 Ethernet ports (RJ-45 only)
+4 enhanced high-speed WAN interface card slots
+Security
+Embedded hardware-accelerated VPN encryption for secure connectivity and collaborative communications Integrated threat control using Cisco IOS Firewall, Cisco IOS Zone-Based Firewall, Cisco IOS IPS, and Cisco IOS Content Filtering
+Identity management using authentication, authorization, and accounting (AAA) and public key infrastructure
+Voice
+High-density-packet voice DSP module, optimized for voice and video support
+
+
+switch 2960x
+224 GigE ports switch with  4X1G SFP (uplink) ports
+stackable switch give us the ability to expand 
+
+3560L3 switch 
+for vlan routing 
+
+HPE ProLiant DL380 Gen10 Server 
+The HPE ProLiant DL380 Gen10 server delivers the latest in security, performance and expandability, backed by a comprehensive warranty. Standardize on the industry's most trusted compute platform.

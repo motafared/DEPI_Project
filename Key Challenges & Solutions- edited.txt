@@ -1,0 +1,29 @@
+Key Challenges & Solutions 
+
+1. Challenge: Secure Communication Between Branches
+•	Risk: Data interception over public networks.
+•	Solution:
+o	IPsec VPNs: Implemented site-to-site tunnels with AES-256 encryption, IKEv1 for key exchange, and pre-shared keys.
+o	Verification: Used show crypto session to confirm secure tunnels.
+2. Challenge: Unauthorized Access & Attacks
+•	Risk: Rogue devices, DHCP spoofing, or malicious traffic.
+•	Solution:
+o	Zone-Based Policy Firewall (ZPF): Replaced static ACLs with stateful, zone-aware policies (e.g., "HR can access Finance but not R&D").
+o	DHCP Snooping: Enabled on switches to block rogue DHCP servers, with trusted ports for legitimate servers.
+3. Challenge: Network Downtime Due to Failures
+•	Risk: Single points of failure in routing or switching.
+•	Solution:
+o	To eliminate single points of failure in Branch1, we implemented full network redundancy with dual data paths. End 	devices use bonding mode 1 (active/standby) for link redundancy. OSPF and HSRP provide dynamic routing and gateway 	failover, while STP prevents Layer 2 loops.
+4. Challenge: Limited Public IP Addresses
+•	Risk: Inefficient use of IPv4 addresses.
+•	Solution:
+o	NAT Overload (PAT): Shared a single public IP for multiple internal devices, reducing costs.
+5. Challenge: Monitoring & Troubleshooting Complexity
+•	Risk: Lack of visibility into network health.
+•	Solution:
+o	SNMP and syslog : Deployed for secure monitoring, with traps sent to a central server.
+6. Challenge: Scalability for Future Growth
+•	Risk: Inflexible design unable to accommodate new branches.
+•	Solution:
+o	Modular Design: Used modular routers with multiple expansion slots and stackable switches for flexibility. Implemented 	VLANs (e.g., VLAN 10 for HR) and OSPF areas to simplify branch scalability and integration.
+

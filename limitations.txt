@@ -1,0 +1,5 @@
+packet tracer limitations
+1- NIC teaming for servers and workstations 
+2- link state tracking commands in redunduncy networking:When the server NIC adaptersare configured in a primary or secondary relationship, and the link is lost on the primary interface, network connectivity is transparently changed to the secondary interface.
+3-Gre interfaces doesn't support cyrypto IPsec profile command 
+which is the version of crypto map command but for tunnel interfaces

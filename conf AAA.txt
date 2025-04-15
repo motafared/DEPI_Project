@@ -1,0 +1,18 @@
+B3_R0(config)#aaa new-model  
+B3_R0(config)#tacacs-server host 192.168.2.164 key password
+B3_R0(config)#aaa authentication login default group tacacs+ local  
+
+
+B3_R0(config)#aaa authentication enable default group tacacs+ 
+B3_R0(config)#line console 0
+B3_R0(config-line)#login authentication default
+
+
+B3_R0(config)#username IT secret  it123
+B3_R0(config)#aaa authentication login SSH-Login  group tacacs+ local 
+B3_R0(config)#ip domain-name it@12
+B3_R0(config)#crypto key generate rsa
+How many bits in the modulus [512]: 1024
+B3_R0(config)#line vty 0 4
+B3_R0(config-line)#login authentication SSH-Login 
+B3_R0(config-line)#transport input ssh

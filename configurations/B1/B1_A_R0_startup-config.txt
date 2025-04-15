@@ -26,27 +26,8 @@ license boot module c2900 technology-package securityk9
 !
 !
 !
-crypto isakmp policy 1
- encr aes
- authentication pre-share
- group 5
-!
-crypto isakmp key CISCO address 30.0.0.1
-crypto isakmp key CISCO address 40.0.0.1
 !
 !
-!
-crypto ipsec transform-set Branch esp-aes esp-sha-hmac
-!
-crypto map VPN_DEPI 1 ipsec-isakmp 
- set peer 30.0.0.1
- set transform-set Branch 
- match address 100
-!
-crypto map VPN_DEPI 2 ipsec-isakmp 
- set peer 40.0.0.1
- set transform-set Branch 
- match address 102
 !
 !
 !
@@ -63,11 +44,7 @@ spanning-tree mode pvst
 !
 !
 !
-interface Loopback1
- no ip address
-!
 interface GigabitEthernet0/0
- description ->B3_R0[g0/0][20.0.0.2]
  ip address 10.0.0.1 255.0.0.0
  ip ospf 1 area 0
  ip nat inside
@@ -76,8 +53,6 @@ interface GigabitEthernet0/0
  standby 1 ip 10.0.0.10
  standby 1 preempt
  standby 1 track GigabitEthernet0/3/0
- standby preempt
- standby 0 track GigabitEthernet0/3/0
 !
 interface GigabitEthernet0/1
  description ->B1_A_MS0[g0/1][192.168.0.2]
@@ -96,7 +71,6 @@ interface GigabitEthernet0/2
 interface GigabitEthernet0/3/0
  ip address 11.0.0.1 255.0.0.0
  ip nat outside
- crypto map VPN_DEPI
 !
 interface Vlan1
  no ip address
@@ -107,7 +81,6 @@ router ospf 1
  passive-interface default
  no passive-interface GigabitEthernet0/0
  no passive-interface GigabitEthernet0/1
- no passive-interface Loopback1
 !
 ip nat inside source list NAT_LIST interface GigabitEthernet0/3/0 overload
 ip classless
